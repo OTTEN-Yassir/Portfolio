@@ -4,20 +4,22 @@ publishDate: 2024-02-17 22:50:13
 img: /assets/ccna2.jpg
 img_alt: OTTEN Yassir
 description: |
-  Switching, Routing, and Wireless Essentials (Version 7.00) - Examen Final de Cours SRWE 
+  Switching, Routing, and Wireless Essentials (Version 7.00) 
 tags:
   - Network
-  - Routing and Switching
+  - Switching, Routing, and Wireless
   - CISCO CCNA
   - Packet Tracer
 ---
 I'm pleased to share that I have successfully passed the CCNA 2 Routing and Switching and Wireless Essentials exam. This certification marks a significant milestone in my networking career.
+![Badge](/assets/ccna2Badge.png)  
 
 ## Certification Details
 
+- **Badge Link:** https://www.credly.com/badges/046cecdc-cd65-4de4-a9a4-ddfd7d6a1c4d/public_url
 - **Certification Name:** CCNA 2 - Routing and Switching and Wireless Essentials
 - **Certifying Body:** Cisco
-- **Date of Achievement:** [01/24/2024 09:07 AM]
+- **Date of Achievement:** [24/01/2024 09:07 AM]
 
 ## Course Content
 
