@@ -1,0 +1,201 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-37fxchfa> <head><meta charset="UTF-8"><meta name="description" property="og:description" content="The Voice over IP (VoIP) technology project: We design and implement a sophisticated call center system, integrating Elastix and Ekiga software for seamless communication. There is how i made this architecture step by step.
+"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v4.4.0"><title>Voice over IP (VoIP) Network Design and Implementation Project</title><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,700;1,400&family=Rubik:wght@500;600&display=swap" rel="stylesheet"><script>
+	// This code is inlined in the head to make dark mode instant & blocking.
+	const getThemePreference = () => {
+		if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+			return localStorage.getItem('theme');
+		}
+		return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+	};
+	const isDark = getThemePreference() === 'dark';
+	document.documentElement.classList[isDark ? 'add' : 'remove']('theme-dark');
+
+	if (typeof localStorage !== 'undefined') {
+		// Watch the document element and persist user preference when it changes.
+		const observer = new MutationObserver(() => {
+			const isDark = document.documentElement.classList.contains('theme-dark');
+			localStorage.setItem('theme', isDark ? 'dark' : 'light');
+		});
+		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+	}
+</script><link rel="stylesheet" href="/_astro/about.DPJUr4zN.css" />
+<style>a[data-astro-cid-balv45lp]{position:relative;display:flex;place-content:center;text-align:center;padding:.56em 2em;gap:.8em;color:var(--accent-text-over);text-decoration:none;line-height:1.1;border-radius:999rem;overflow:hidden;background:var(--gradient-accent-orange);box-shadow:var(--shadow-md);white-space:nowrap}@media (min-width: 20em){a[data-astro-cid-balv45lp]{font-size:var(--text-lg)}}a[data-astro-cid-balv45lp]:after{content:"";position:absolute;inset:0;pointer-events:none;transition:background-color var(--theme-transition);mix-blend-mode:overlay}a[data-astro-cid-balv45lp]:focus:after,a[data-astro-cid-balv45lp]:hover:after{background-color:hsla(var(--gray-999-basis),.3)}@media (min-width: 50em){a[data-astro-cid-balv45lp]{padding:1.125rem 2.5rem;font-size:var(--text-xl)}}aside[data-astro-cid-rcdzuq3a]{display:flex;flex-direction:column;align-items:center;gap:3rem;border-top:1px solid var(--gray-800);border-bottom:1px solid var(--gray-800);padding:5rem 1.5rem;background-color:var(--gray-999_40);box-shadow:var(--shadow-sm)}h2[data-astro-cid-rcdzuq3a]{font-size:var(--text-xl);text-align:center;max-width:15ch}@media (min-width: 50em){aside[data-astro-cid-rcdzuq3a]{padding:7.5rem;flex-direction:row;flex-wrap:wrap;justify-content:space-between}h2[data-astro-cid-rcdzuq3a]{font-size:var(--text-3xl);text-align:left}}
+svg[data-astro-cid-patnjmll]{vertical-align:middle;width:var(--size, 1em);height:var(--size, 1em)}
+.pill[data-astro-cid-2qeywk4b]{display:flex;padding:.5rem 1rem;gap:.5rem;color:var(--accent-text-over);border:1px solid var(--accent-regular);background-color:var(--accent-regular);border-radius:999rem;font-size:var(--text-md);line-height:1.35;white-space:nowrap}
+header[data-astro-cid-qwekciqp]{padding-bottom:2.5rem;border-bottom:1px solid var(--gray-800)}.back-link[data-astro-cid-qwekciqp]{display:none}.details[data-astro-cid-qwekciqp]{display:flex;flex-direction:column;padding:.5rem;gap:1.5rem;justify-content:space-between;align-items:center}.tags[data-astro-cid-qwekciqp]{display:flex;gap:.5rem}.description[data-astro-cid-qwekciqp]{font-size:var(--text-lg);max-width:54ch}.content[data-astro-cid-qwekciqp]{max-width:65ch;margin-inline:auto}.content[data-astro-cid-qwekciqp]>*+*{margin-top:1rem}.content[data-astro-cid-qwekciqp] h1,.content[data-astro-cid-qwekciqp] h2,.content[data-astro-cid-qwekciqp] h3,.content[data-astro-cid-qwekciqp] h4,.content[data-astro-cid-qwekciqp] h5{margin:1.5rem 0}.content[data-astro-cid-qwekciqp] img{border-radius:1.5rem;box-shadow:var(--shadow-sm);background:var(--gradient-subtle);border:1px solid var(--gray-800)}.content[data-astro-cid-qwekciqp] blockquote{font-size:var(--text-lg);font-family:var(--font-brand);font-weight:600;line-height:1.1;padding-inline-start:1.5rem;border-inline-start:.25rem solid var(--accent-dark);color:var(--gray-0)}.back-link[data-astro-cid-qwekciqp],.content[data-astro-cid-qwekciqp] a{text-decoration:1px solid underline transparent;text-underline-offset:.25em;transition:text-decoration-color var(--theme-transition)}.back-link[data-astro-cid-qwekciqp]:hover,.back-link[data-astro-cid-qwekciqp]:focus,.content[data-astro-cid-qwekciqp] a:hover,.content[data-astro-cid-qwekciqp] a:focus{text-decoration-color:currentColor}@media (min-width: 50em){.back-link[data-astro-cid-qwekciqp]{display:block;align-self:flex-start}.details[data-astro-cid-qwekciqp]{flex-direction:row;gap:2.5rem}.content[data-astro-cid-qwekciqp] blockquote{font-size:var(--text-2xl)}}
+</style><script type="module">addEventListener("load",()=>document.documentElement.classList.add("loaded"));class i extends HTMLElement{constructor(){super(),this.appendChild(this.querySelector("template").content.cloneNode(!0));const t=this.querySelector("button"),e=document.getElementById("menu-content");e.hidden=!0,e.classList.add("menu-content");const n=s=>{t.setAttribute("aria-expanded",s?"true":"false"),e.hidden=!s};t.addEventListener("click",()=>n(e.hidden));const d=s=>{n(s.matches),t.hidden=s.matches},c=window.matchMedia("(min-width: 50em)");d(c),c.addEventListener("change",d)}}customElements.define("menu-button",i);class a extends HTMLElement{constructor(){super();const t=this.querySelector("button"),e=n=>{document.documentElement.classList[n?"add":"remove"]("theme-dark"),t.setAttribute("aria-pressed",String(n))};t.addEventListener("click",()=>e(!this.isDark())),e(this.isDark())}isDark(){return document.documentElement.classList.contains("theme-dark")}}customElements.define("theme-toggle",a);
+</script></head> <body data-astro-cid-37fxchfa> <div class="stack backgrounds" data-astro-cid-37fxchfa> <nav data-astro-cid-dmqpwcec> <div class="menu-header" data-astro-cid-dmqpwcec> <a href="/" class="site-title" data-astro-cid-dmqpwcec> <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 256 256" aria-hidden="true" stroke="url(#icon-gradient-kw3jy0q7)" fill="url(#icon-gradient-kw3jy0q7)" style="--size:1.6em" class="astro-patnjmll" data-astro-cid-patnjmll> <g data-astro-cid-patnjmll><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M210.3 35.9 23.9 88.4a8 8 0 0 0-1.2 15l85.6 40.5a7.8 7.8 0 0 1 3.8 3.8l40.5 85.6a8 8 0 0 0 15-1.2l52.5-186.4a7.9 7.9 0 0 0-9.8-9.8Zm-99.4 109.2 45.2-45.2"/></g> <linearGradient id="icon-gradient-kw3jy0q7" x1="23" x2="235" y1="43" y2="202" gradientUnits="userSpaceOnUse" data-astro-cid-patnjmll> <stop stop-color="var(--gradient-stop-1)" data-astro-cid-patnjmll></stop> <stop offset=".5" stop-color="var(--gradient-stop-2)" data-astro-cid-patnjmll></stop> <stop offset="1" stop-color="var(--gradient-stop-3)" data-astro-cid-patnjmll></stop> </linearGradient> </svg> 
+58102@etu.he2b.be
+</a> <menu-button data-astro-cid-dmqpwcec> <template data-astro-cid-dmqpwcec> <button class="menu-button" aria-expanded="false" data-astro-cid-dmqpwcec> <span class="sr-only" data-astro-cid-dmqpwcec>Menu</span> <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 256 256" aria-hidden="true" stroke="currentcolor" fill="currentcolor" class="astro-patnjmll" data-astro-cid-patnjmll> <g data-astro-cid-patnjmll><path stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M40 128h176M40 64h176M40 192h176"/></g>  </svg>  </button> </template> </menu-button> </div> <noscript> <ul class="nav-items" data-astro-cid-dmqpwcec> <li data-astro-cid-dmqpwcec> <a class="link" href="/" data-astro-cid-dmqpwcec> Home </a> </li><li data-astro-cid-dmqpwcec> <a class="link active" href="/work/" data-astro-cid-dmqpwcec> Projects </a> </li><li data-astro-cid-dmqpwcec> <a class="link" href="/about/" data-astro-cid-dmqpwcec> About </a> </li> </ul> </noscript> <noscript> <div class="menu-footer" data-astro-cid-dmqpwcec> <div class="socials" data-astro-cid-dmqpwcec> <a href="https://www.linkedin.com/in/yâssir-otten" class="social" data-astro-cid-dmqpwcec> <span class="sr-only" data-astro-cid-dmqpwcec>Linkedin</span> <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 256 256" aria-hidden="true" stroke="currentcolor" fill="currentcolor" class="astro-patnjmll" data-astro-cid-patnjmll> <g data-astro-cid-patnjmll><rect width="184" height="184" x="36" y="36" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" rx="8"/><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M120 112v64m-32-64v64m32-36a28 28 0 0 1 56 0v36"/><circle stroke="none" cx="88" cy="80" r="12"/></g>  </svg>  </a><a href="https://github.com/OTTEN-Yassir" class="social" data-astro-cid-dmqpwcec> <span class="sr-only" data-astro-cid-dmqpwcec>GitHub</span> <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 256 256" aria-hidden="true" stroke="currentcolor" fill="currentcolor" class="astro-patnjmll" data-astro-cid-patnjmll> <g data-astro-cid-patnjmll><g stroke-linecap="round" stroke-linejoin="round"><path fill="none" stroke-width="14.7" d="M55.7 167.2c13.9 1 21.3 13.1 22.2 14.6 4.2 7.2 10.4 9.6 18.3 7.1l1.1-3.4a60.3 60.3 0 0 1-25.8-11.9c-12-10.1-18-25.6-18-46.3"/><path fill="none" stroke-width="16" d="M61.4 205.1a24.5 24.5 0 0 1-3-6.1c-3.2-7.9-7.1-10.6-7.8-11.1l-1-.6c-2.4-1.6-9.5-6.5-7.2-13.9 1.4-4.5 6-7.2 12.3-7.2h.8c4 .3 7.6 1.5 10.7 3.2-9.1-10.1-13.6-24.3-13.6-42.3 0-11.3 3.5-21.7 10.1-30.4A46.7 46.7 0 0 1 65 67.3a8.3 8.3 0 0 1 5-4.7c2.8-.9 13.3-2.7 33.2 9.9a105 105 0 0 1 50.5 0c19.9-12.6 30.4-10.8 33.2-9.9 2.3.7 4.1 2.4 5 4.7 5 12.7 4 23.2 2.6 29.4 6.7 8.7 10 18.9 10 30.4 0 42.6-25.8 54.7-43.6 58.7 1.4 4.1 2.2 8.8 2.2 13.7l-.1 23.4v2.3"/><path fill="none" stroke-width="16" d="M160.9 185.7c1.4 4.1 2.2 8.8 2.2 13.7l-.1 23.4v2.3A98.6 98.6 0 1 0 61.4 205c-1.4-2.1-11.3-17.5-11.8-17.8-2.4-1.6-9.5-6.5-7.2-13.9 1.4-4.5 6-7.2 12.3-7.2h.8c4 .3 7.6 1.5 10.7 3.2-9.1-10.1-13.6-24.3-13.6-42.3 0-11.3 3.5-21.7 10.1-30.4A46.4 46.4 0 0 1 65 67.3a8.3 8.3 0 0 1 5-4.7c2.8-.9 13.3-2.7 33.2 9.9a105 105 0 0 1 50.5 0c19.9-12.6 30.4-10.8 33.2-9.9 2.3.7 4.1 2.4 5 4.7 5 12.7 4 23.2 2.6 29.4 6.7 8.7 10 18.9 10 30.4.1 42.6-25.8 54.7-43.6 58.6z"/><path fill="none" stroke-width="18.7" d="m170.1 203.3 17.3-12 17.2-18.7 9.5-26.6v-27.9l-9.5-27.5" /><path fill="none" stroke-width="22.7" d="m92.1 57.3 23.3-4.6 18.7-1.4 29.3 5.4m-110 32.6-8 16-4 21.4.6 20.3 3.4 13" /><path fill="none" stroke-width="13.3" d="M28.8 133a100 100 0 0 0 66.9 94.4v-8.7c-22.4 1.8-33-11.5-35.6-19.8-3.4-8.6-7.8-11.4-8.5-11.8"/></g></g>  </svg>  </a><a href="mailto:58102@etu.he2b.be" class="social" data-astro-cid-dmqpwcec> <span class="sr-only" data-astro-cid-dmqpwcec>Mail</span> <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 256 256" aria-hidden="true" stroke="currentcolor" fill="currentcolor" class="astro-patnjmll" data-astro-cid-patnjmll> <g data-astro-cid-patnjmll><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M210.3 35.9 23.9 88.4a8 8 0 0 0-1.2 15l85.6 40.5a7.8 7.8 0 0 1 3.8 3.8l40.5 85.6a8 8 0 0 0 15-1.2l52.5-186.4a7.9 7.9 0 0 0-9.8-9.8Zm-99.4 109.2 45.2-45.2"/></g>  </svg>  </a> </div> </div> </noscript> <div id="menu-content" hidden data-astro-cid-dmqpwcec> <ul class="nav-items" data-astro-cid-dmqpwcec> <li data-astro-cid-dmqpwcec> <a class="link" href="/" data-astro-cid-dmqpwcec> Home </a> </li><li data-astro-cid-dmqpwcec> <a class="link active" href="/work/" data-astro-cid-dmqpwcec> Projects </a> </li><li data-astro-cid-dmqpwcec> <a class="link" href="/about/" data-astro-cid-dmqpwcec> About </a> </li> </ul> <div class="menu-footer" data-astro-cid-dmqpwcec> <div class="socials" data-astro-cid-dmqpwcec> <a href="https://www.linkedin.com/in/yâssir-otten" class="social" data-astro-cid-dmqpwcec> <span class="sr-only" data-astro-cid-dmqpwcec>Linkedin</span> <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 256 256" aria-hidden="true" stroke="currentcolor" fill="currentcolor" class="astro-patnjmll" data-astro-cid-patnjmll> <g data-astro-cid-patnjmll><rect width="184" height="184" x="36" y="36" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" rx="8"/><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M120 112v64m-32-64v64m32-36a28 28 0 0 1 56 0v36"/><circle stroke="none" cx="88" cy="80" r="12"/></g>  </svg>  </a><a href="https://github.com/OTTEN-Yassir" class="social" data-astro-cid-dmqpwcec> <span class="sr-only" data-astro-cid-dmqpwcec>GitHub</span> <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 256 256" aria-hidden="true" stroke="currentcolor" fill="currentcolor" class="astro-patnjmll" data-astro-cid-patnjmll> <g data-astro-cid-patnjmll><g stroke-linecap="round" stroke-linejoin="round"><path fill="none" stroke-width="14.7" d="M55.7 167.2c13.9 1 21.3 13.1 22.2 14.6 4.2 7.2 10.4 9.6 18.3 7.1l1.1-3.4a60.3 60.3 0 0 1-25.8-11.9c-12-10.1-18-25.6-18-46.3"/><path fill="none" stroke-width="16" d="M61.4 205.1a24.5 24.5 0 0 1-3-6.1c-3.2-7.9-7.1-10.6-7.8-11.1l-1-.6c-2.4-1.6-9.5-6.5-7.2-13.9 1.4-4.5 6-7.2 12.3-7.2h.8c4 .3 7.6 1.5 10.7 3.2-9.1-10.1-13.6-24.3-13.6-42.3 0-11.3 3.5-21.7 10.1-30.4A46.7 46.7 0 0 1 65 67.3a8.3 8.3 0 0 1 5-4.7c2.8-.9 13.3-2.7 33.2 9.9a105 105 0 0 1 50.5 0c19.9-12.6 30.4-10.8 33.2-9.9 2.3.7 4.1 2.4 5 4.7 5 12.7 4 23.2 2.6 29.4 6.7 8.7 10 18.9 10 30.4 0 42.6-25.8 54.7-43.6 58.7 1.4 4.1 2.2 8.8 2.2 13.7l-.1 23.4v2.3"/><path fill="none" stroke-width="16" d="M160.9 185.7c1.4 4.1 2.2 8.8 2.2 13.7l-.1 23.4v2.3A98.6 98.6 0 1 0 61.4 205c-1.4-2.1-11.3-17.5-11.8-17.8-2.4-1.6-9.5-6.5-7.2-13.9 1.4-4.5 6-7.2 12.3-7.2h.8c4 .3 7.6 1.5 10.7 3.2-9.1-10.1-13.6-24.3-13.6-42.3 0-11.3 3.5-21.7 10.1-30.4A46.4 46.4 0 0 1 65 67.3a8.3 8.3 0 0 1 5-4.7c2.8-.9 13.3-2.7 33.2 9.9a105 105 0 0 1 50.5 0c19.9-12.6 30.4-10.8 33.2-9.9 2.3.7 4.1 2.4 5 4.7 5 12.7 4 23.2 2.6 29.4 6.7 8.7 10 18.9 10 30.4.1 42.6-25.8 54.7-43.6 58.6z"/><path fill="none" stroke-width="18.7" d="m170.1 203.3 17.3-12 17.2-18.7 9.5-26.6v-27.9l-9.5-27.5" /><path fill="none" stroke-width="22.7" d="m92.1 57.3 23.3-4.6 18.7-1.4 29.3 5.4m-110 32.6-8 16-4 21.4.6 20.3 3.4 13" /><path fill="none" stroke-width="13.3" d="M28.8 133a100 100 0 0 0 66.9 94.4v-8.7c-22.4 1.8-33-11.5-35.6-19.8-3.4-8.6-7.8-11.4-8.5-11.8"/></g></g>  </svg>  </a><a href="mailto:58102@etu.he2b.be" class="social" data-astro-cid-dmqpwcec> <span class="sr-only" data-astro-cid-dmqpwcec>Mail</span> <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 256 256" aria-hidden="true" stroke="currentcolor" fill="currentcolor" class="astro-patnjmll" data-astro-cid-patnjmll> <g data-astro-cid-patnjmll><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M210.3 35.9 23.9 88.4a8 8 0 0 0-1.2 15l85.6 40.5a7.8 7.8 0 0 1 3.8 3.8l40.5 85.6a8 8 0 0 0 15-1.2l52.5-186.4a7.9 7.9 0 0 0-9.8-9.8Zm-99.4 109.2 45.2-45.2"/></g>  </svg>  </a> </div> <div class="theme-toggle" data-astro-cid-dmqpwcec> <theme-toggle data-astro-cid-x3pjskd3> <button data-astro-cid-x3pjskd3> <span class="sr-only" data-astro-cid-x3pjskd3>Dark theme</span> <span class="icon light" data-astro-cid-x3pjskd3><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 256 256" aria-hidden="true" stroke="currentcolor" fill="currentcolor" class="astro-patnjmll" data-astro-cid-patnjmll> <g data-astro-cid-patnjmll><circle cx="128" cy="128" r="60" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M128 36V16M63 63 49 49m-13 79H16m47 65-14 14m79 13v20m65-47 14 14m13-79h20m-47-65 14-14"/></g>  </svg> </span> <span class="icon dark" data-astro-cid-x3pjskd3><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 256 256" aria-hidden="true" stroke="currentcolor" fill="currentcolor" class="astro-patnjmll" data-astro-cid-patnjmll> <g data-astro-cid-patnjmll><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M216 112V64m24 24h-48m-24-64v32m16-16h-32m65 113A92 92 0 0 1 103 39h0a92 92 0 1 0 114 114Z"/></g>  </svg> </span> </button> </theme-toggle>   </div> </div> </div> </nav>    <div class="stack gap-20" data-astro-cid-qwekciqp> <div class="stack gap-15" data-astro-cid-qwekciqp> <header data-astro-cid-qwekciqp> <div class="wrapper stack gap-2" data-astro-cid-qwekciqp> <a class="back-link" href="/work/" data-astro-cid-qwekciqp><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 256 256" aria-hidden="true" stroke="currentcolor" fill="currentcolor" class="astro-patnjmll" data-astro-cid-patnjmll> <g data-astro-cid-patnjmll><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M216 128H40m72-72-72 72 72 72"/></g>  </svg>  Work</a> <div class="hero stack gap-4 start" data-astro-cid-bbe6dxrz> <div class="stack gap-2" data-astro-cid-bbe6dxrz> <h1 class="title" data-astro-cid-bbe6dxrz>Voice over IP (VoIP) Network Design and Implementation Project</h1>  </div>  <div class="details" data-astro-cid-qwekciqp> <div class="tags" data-astro-cid-qwekciqp> <div class="pill" data-astro-cid-2qeywk4b>Network</div> <div class="pill" data-astro-cid-2qeywk4b>Voice over IP</div> <div class="pill" data-astro-cid-2qeywk4b>Elastix</div> <div class="pill" data-astro-cid-2qeywk4b>Ekiga</div> <div class="pill" data-astro-cid-2qeywk4b>Step by Step</div>  </div> <p class="description" data-astro-cid-qwekciqp>The Voice over IP (VoIP) technology project: We design and implement a sophisticated call center system, integrating Elastix and Ekiga software for seamless communication. There is how i made this architecture step by step.
+</p> </div>  </div>  </div> </header> <main class="wrapper" data-astro-cid-qwekciqp> <div class="stack gap-10 content" data-astro-cid-qwekciqp> <img src="/assets/voip.png" alt="OTTEN Yassir" data-astro-cid-qwekciqp> <div class="content" data-astro-cid-qwekciqp> <h1 id="table-of-contents">Table of Contents</h1>
+<ol>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#general-configuration">General Configuration</a>
+<ul>
+<li><a href="#elastix-account">Elastix Account</a></li>
+<li><a href="#ekiga-account">Ekiga Account</a></li>
+<li><a href="#call">Call</a></li>
+</ul>
+</li>
+<li><a href="#call-flow-diagram">Call Flow Diagram</a></li>
+<li><a href="#day/night">Day/Night</a>
+<ul>
+<li><a href="#follow-me">Follow Me</a></li>
+<li><a href="#day/night-control">Day/Night Control</a></li>
+</ul>
+</li>
+<li><a href="#ivr">IVR</a>
+<ul>
+<li><a href="#upload-message">Upload Message</a></li>
+<li><a href="#ivr-configuration">IVR Configuration</a></li>
+<li><a href="#voicemail">Voicemail</a></li>
+<li><a href="#ring-group">Ring Group</a></li>
+<li><a href="#queue">Queue</a></li>
+</ul>
+</li>
+<li><a href="#server-interrconection">Server Interconnection</a>
+<ul>
+<li><a href="#iax2-extension">IAX2 Extension</a></li>
+<li><a href="#trunk">Trunk</a></li>
+<li><a href="#route">Route</a></li>
+</ul>
+</li>
+</ol>
+<h2 id="introduction">Introduction</h2>
+<p>We have implemented a call center system involving the configuration of 4 servers, each dedicated to a specific group of 2 or 3 persons. Each server operates with Elastix software for call management. Within each group, physical machines have been configured with Ekiga software, establishing a connection with the corresponding server. This client-server architecture enables efficient management of all communications within the call center.</p>
+<p><strong>Ekiga</strong>:<br>
+Ekiga is an open-source, real-time communication software application. It offers Internet telephony, instant messaging, and video conferencing functionalities. Compatible with SIP and H.323 protocols, Ekiga allows users to initiate voice and video calls over IP networks.</p>
+<p><strong>Elastix</strong>:<br>
+Elastix is a unified communication platform based on the Asterisk IP telephony management system. This open-source solution provides a user-friendly interface to configure and manage VoIP services, including call center features. Elastix servers play a central role in managing calls, users, and services within an integrated communication environment.</p>
+<h2 id="general-configuration">General Configuration</h2>
+<p>The Elastix servers, once booted and assigned an IP address, are configured through a graphical interface accessible via a web browser at the server’s IP address: 192.168.212.3. This interface will be used for further configuration.</p>
+<p>The clients are Ekiga software installed on Windows 7 PCs in the same network as the servers. These software applications require a reference server and accounts recognized by this server.</p>
+<h4 id="elastix-account">Elastix Account</h4>
+<p>On the Elastix server, under the <strong>PBX</strong> and <strong>PBX Configuration</strong> tabs, select <strong>Extensions</strong> on the left and <strong>Add Extension</strong> on the right. This page prompts the creation of a type of extension: a <strong>Device</strong>, <strong>Generic SIP Device</strong>.<br>
+<img src="/assets/AllExtensions.PNG" alt="elastix account"><br>
+Click on <strong>Submit</strong> to enter the configuration page; most options remain at their default values.<br>
+<img src="/assets/DjaouadExtension_1.PNG" alt="elastix account"><br>
+This account will be used by Djaouad. The SIP Alias is his identification number, which is also used as his phone number and email address.<br>
+<img src="/assets/DjaouadExtension_2.PNG" alt="elastix account"><br>
+Once these elements have been entered, click on <strong>Submit</strong> at the bottom of the page, then on the pop-up <strong>Save Configuration</strong>.</p>
+<h4 id="ekiga-account">Ekiga Account</h4>
+<p>To add an account in the Ekiga application, once launched, select <strong>Edit</strong> then <strong>Accounts</strong>, which provides access to the following interface.<br>
+<img src="/assets/listAccount.png" alt="ekiga account"></p>
+<p>The <strong>Enable</strong> and <strong>Disable</strong> options allow you to connect and disconnect the selected account, respectively. The <strong>Edit</strong> and <strong>Delete</strong> options open a form.<br>
+<img src="/assets/fieldAccount.png" alt="ekiga account"><br>
+<strong>Name</strong> is local, it describes the user.<br>
+<strong>Registrar</strong> is the SIP server’s IP address, 192.168.212.3.<br>
+<strong>User</strong>, <strong>ID</strong>, and <strong>Password</strong> are the account characteristics defined on the server.<br>
+We did not use the Timeout; it remained with its default value.</p>
+<p>To create an account, select <strong>Accounts</strong> then <strong>Add a SIP account</strong>, and the same form will open.</p>
+<h4 id="call">Call</h4>
+<p>Once a second account, under the name of Yassir, was created, we were able to make calls.<br>
+On Ekiga’s home screen, a keypad allows entering the recipient’s number, i.e., Yassir’s ID: 58102. This number is followed by the registrar’s address.<br>
+<img src="/assets/Clavier.PNG" alt="call account"></p>
+<p><img src="/assets/AppelEnCours.PNG" alt="call account"><br>
+Yassir then receives a call notification through a ringtone and a pop-up from the application, which he can either accept or decline.</p>
+<h2 id="call-flow-diagram">Call Flow Diagram</h2>
+<p>Here is a representation of the exchanges when a call is made to a number recognized by our server.<br>
+<img src="/assets/callDiagram.png" alt="call diagram"></p>
+<p>When a call is rejected, the <strong>Day/Night</strong> service activates, directing the call either directly to a voicemail or to an answering machine.<br>
+The answering machine offers several services to contact; if the caller presses 3 or waits too long, the answering machine repeats its announcement.<br>
+The configuration of the <strong>Day/Night</strong> service and the answering machine is detailed in the following sections.</p>
+<h2 id="daynight">Day/Night</h2>
+<p>Le service <strong>Day/Night</strong> permet d’orienter différemment les appels selon la personne contactée et l’heure de l’appel.</p>
+<h4 id="follow-me">Follow Me</h4>
+<p>The <strong>Follow Me</strong> feature associates one or more users with a destination. If the user does not answer an incoming call, the call is automatically redirected to the chosen destination.<br>
+Here, the phone number 57444 (announced in the <strong>Follow-Me</strong> List) is associated with Pierre’s <strong>Day/Night</strong> Mode.</p>
+<p><img src="/assets/FollowMe_Pierre.PNG" alt="Follow ME"></p>
+<p>Other Follow Me settings have been created in a similar manner for various other accounts.</p>
+<h4 id="daynight-control">Day/Night Control</h4>
+<p>A <strong>Day/Night</strong> object is identified by a code and a description. The <strong>Day</strong> and <strong>Night</strong> options are used to define the behavior of the <strong>Day/Night</strong> based on the time of the call.<br>
+<img src="/assets/AllDayNight.PNG" alt="Day/Night"><br>
+In this example, if someone tries to contact Pierre during the day, the call is redirected to the IVR <strong>VoicemailCenter</strong>. During the night, the caller is sent directly to Pierre’s voicemail.<br>
+<img src="/assets/DayNight_Pierre.PNG" alt="Day/Night"></p>
+<h2 id="ivr">IVR</h2>
+<p>IVR, or <strong>Interactive Voice Response</strong>, is an automated system of interactive voice responses used in telecommunications. It enables users to interact with a computer through keypad commands. The IVR guides callers with pre-recorded voice messages.</p>
+<h4 id="upload-message">Upload Message</h4>
+<p>The first step in creating an IVR is to record a voice message to guide the caller when the recipient is unavailable.<br>
+To do this, go to <strong>PBX Configuration > System Recordings</strong> and click on <strong>Add Recording</strong>.<br>
+The audio file format must be wav mono 16 bits.</p>
+<p><img src="/assets/System_Recordings.PNG" alt="IVR"></p>
+<p>My uploaded file is <strong>VoicemailCenter</strong>.</p>
+<h4 id="ivr-configuration">IVR Configuration</h4>
+<p>Next, go to <strong>PBX Configuration > IVR</strong>.<br>
+Then, click on <strong>Add IVR</strong> to start its configuration.
+<strong>Change Name</strong>: VoicemailCenter (the name of the IVR)<br>
+<strong>Announcemen</strong>t: VoicemailCenter (the previously created audio file)<br>
+At the bottom of the page, there are options associated with the keypad numbers.<br>
+Redirects to other callers must be to users/extensions previously created.<br>
+<strong>key 1</strong> = redirect to info account &#x3C;301> (Ring Group)<br>
+<strong>key 2</strong> = redirect to technical service &#x3C;302> (Ring Group)<br>
+<strong>key 3</strong>= listen to the IVR again<br>
+These are the different options offered to the caller when the recipient does not answer.<br>
+After redirecting to the info or technical service account, if they are not reachable, then a standard voicemail starts with the option to leave a message after the beep.</p>
+<p><img src="/assets/IVR.PNG" alt="IVR"></p>
+<h4 id="voicemail">Voicemail</h4>
+<p>The traditional Voicemail system, allowing users to leave a voice message after a beep, was implemented at certain times. This system was also linked to an email inbox associated with our SIP number (via the mailbox field in the extension).</p>
+<p><img src="/assets/AllWebMail.PNG" alt="Voicemail"></p>
+<p>After a message has been left on the voicemail, an email containing the audio file is sent to the associated recipient.<br>
+<img src="/assets/58102Mail.PNG" alt="Voicemail"></p>
+<p><img src="/assets/ContentMail_2.PNG" alt="Voicemail"></p>
+<p>Subsequently, the operation was repeated by synchronizing our user extensions not with the mailbox on the server, but with our respective HE2B mailboxes.<br>
+<img src="/assets/mailAsterisk.png" alt="Voicemail"></p>
+<h4 id="ring-group">Ring Group</h4>
+<p>A Ring Group is a feature that allows multiple telephone extensions to be grouped together. When a call is received on the group number, all phones belonging to the group will ring simultaneously, enabling any of them to answer the call.<br>
+This provides an efficient way to manage incoming calls and ensure they are promptly attended to by a member of the group.<br>
+Here are screenshots of the two groups we created:</p>
+<p><img src="/assets/RingGroups_301.PNG" alt="Ring Group"><br>
+<img src="/assets/RingGroups_301.PNG" alt="Ring Group"></p>
+<p>For configuration, we had to fill in several fields, including “ringing strategy.” The ringing strategy determines how group members will be alerted. Common strategies include:</p>
+<ul>
+<li><strong>Ring All</strong>: All group members ring simultaneously.</li>
+<li><strong>Round Robin</strong>: Calls are distributed sequentially to group members.</li>
+<li><strong>Least Recent</strong>: The call is directed to the group member who has not received a call for the longest time.<br>
+The Ring Time is the duration for which member phones ring before the call is transferred elsewhere.</li>
+</ul>
+<h4 id="queue">Queue</h4>
+<p>Queue is a feature that efficiently manages incoming calls by placing them in a queue until an available member of the group can answer them. This is particularly useful in call centers and businesses where multiple employees can handle calls. The most common queue strategies include:</p>
+<ul>
+<li><strong>Ringall</strong>: All members of the queue ring simultaneously.</li>
+<li><strong>Leastrecent</strong>: The call is directed to the member who has not received a call for the longest time.</li>
+<li><strong>Random</strong>: The call is directed to a randomly chosen member.</li>
+<li><strong>Roundrobin</strong>: Calls are distributed in sequences to queue members.</li>
+</ul>
+<h2 id="server-interconnection">Server Interconnection</h2>
+<p>So far, we have established local communication, internal to our server and our network/company. Going forward, we would like to be able to communicate with the outside world. To do this, we need to interconnect the different servers with each other.</p>
+<h4 id="iax2-extension">IAX2 Extension</h4>
+<p>To be able to configure trunks between the different servers, each of them must first create an IAX2 extension, which will allow the creation of the trunks.</p>
+<p><img src="/assets/IAX2.png" alt="IAX2"></p>
+<p>The extensions must be unique for each link between the different servers.</p>
+<h4 id="trunk">Trunk</h4>
+<p>The second step in the server interconnection process is to create Trunks. This will allow the servers to properly route packets between each other.<br>
+To do this, go to <strong>PBX Configuration > Basic > Trunk</strong>. Then, create the trunk by clicking on <strong>Add IAX2 Trunk</strong>.</p>
+<p><img src="/assets/trunk.png" alt="Trunk"></p>
+<p>Here are my two Trunk links for the two servers I want to communicate with. To continue, these Trunks need to be configured with the correct information.</p>
+<p><img src="/assets/TrunkVersJulien_1.PNG" alt="Trunk"></p>
+<p><strong>Trunk Name</strong>: the name of the trunk link, here, TrunkToJulien.</p>
+<p><strong>+prefix</strong>: a number that the user will have to enter with each number to indicate that the communication should be redirected to the Trunk link.<br>
+<strong>| match pattern</strong>: the format of the numbers of the server to be reached. Here, all the numbers of Julien’s server users consist of 3 digits so XXX.<br>
+<strong>In the Outgoing Settings section</strong>:<br>
+<strong>host =</strong>: the IP address of the server to contact (always Julien).<br>
+<strong>username =</strong> : the extension number of the IAX2 (step a) created on the server to be reached.</p>
+<p><img src="/assets/TrunkVersJulien_2.PNG" alt="Trunk"></p>
+<p><strong>In the Incoming Settings section</strong>:<br>
+<strong>USER Context</strong>: the extension number of the remote server’s IAX2 extension.<br>
+<strong>user</strong>: the extension number of the remote server’s IAX2 extension.<br>
+<strong>Register String</strong>: the extension number of the remote server’s IAX2 extension and the server’s IP address separated by an @.<br>
+<strong>secret</strong>: same password everywhere.<br>
+The same operation must be repeated according to the number of servers we want to interconnect.  However, it is essential to pay attention and adjust the above fields, which are specific to each server.</p>
+<h4 id="route">Route</h4>
+<p>The last step in the interconnection process and establishing inter-server communication is adding a route per server.<br>
+This route will utilize the previously created trunk.<br>
+To add a route, go to <strong>Basic > Outbound Routes</strong>.</p>
+<p><img src="/assets/RouteVersJulien.PNG" alt="Route"></p>
+<p><strong>Route Name</strong>: the name of the route, here, <strong>routeToJulien</strong>.<br>
+In the central part, you need to enter the desired prefix and format (match pattern) of the server to be reached.<br>
+In the bottom part (Trunk Sequence…), you need to expand the menu that will display all the created trunks. Select the corresponding trunk to establish the connection between them.<br>
+Once this step is completed, users from both servers can communicate.</p> </div> </div> </main> </div> <aside data-astro-cid-rcdzuq3a> <h2 data-astro-cid-rcdzuq3a>More informations?</h2> <a href="mailto:58102@etu.he2b.be" data-astro-cid-balv45lp>
+Send Me a Message
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 256 256" aria-hidden="true" stroke="currentcolor" fill="currentcolor" style="--size:1.2em" class="astro-patnjmll" data-astro-cid-patnjmll> <g data-astro-cid-patnjmll><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M210.3 35.9 23.9 88.4a8 8 0 0 0-1.2 15l85.6 40.5a7.8 7.8 0 0 1 3.8 3.8l40.5 85.6a8 8 0 0 0 15-1.2l52.5-186.4a7.9 7.9 0 0 0-9.8-9.8Zm-99.4 109.2 45.2-45.2"/></g>  </svg>  </a>  </aside>  </div>  <footer data-astro-cid-sz7xmlte> <div class="group" data-astro-cid-sz7xmlte> <p data-astro-cid-sz7xmlte>
+Designed & Developed in Portland with <a href="https://astro.build/" data-astro-cid-sz7xmlte>Astro</a> <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 256 256" aria-hidden="true" stroke="currentcolor" fill="currentcolor" style="--size:1.2em" class="astro-patnjmll" data-astro-cid-patnjmll> <g data-astro-cid-patnjmll><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M94.1 184.6c-11.4 33.9-56.6 33.9-56.6 33.9s0-45.2 33.9-56.6m124.5-56.5L128 173.3 82.7 128l67.9-67.9C176.3 34.4 202 34.7 213 36.3a7.8 7.8 0 0 1 6.7 6.7c1.6 11 1.9 36.7-23.8 62.4Z"/><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" d="M184.6 116.7v64.6a8 8 0 0 1-2.4 5.6l-32.3 32.4a8 8 0 0 1-13.5-4.1l-8.4-41.9m11.3-101.9H74.7a8 8 0 0 0-5.6 2.4l-32.4 32.3a8 8 0 0 0 4.1 13.5l41.9 8.4"/></g>  </svg>  </p> <p data-astro-cid-sz7xmlte>&copy; 2024 OTTEN Yassir</p> </div> <p class="socials" data-astro-cid-sz7xmlte> <a href="https://www.linkedin.com/in/yâssir-otten" data-astro-cid-sz7xmlte> Linkedin</a> <a href="https://github.com/OTTEN-Yassir" data-astro-cid-sz7xmlte> GitHub</a> </p> </footer>  </div>   </body> </html> 
