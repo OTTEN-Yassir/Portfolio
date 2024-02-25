@@ -10,6 +10,7 @@ tags:
   - Switching, Routing, and Wireless
   - CISCO CCNA
   - Packet Tracer
+  - Wireless LAN Controllers
 ---
 I'm pleased to share that I have successfully passed the CCNA 2 Routing and Switching and Wireless Essentials exam. This certification marks a significant milestone in my networking career.
 ![Badge](/assets/ccna2Badge.png)  
