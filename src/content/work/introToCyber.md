@@ -1,6 +1,6 @@
 ---
 title: CISCO Introduction to Cybersecurity
-publishDate: 2024-02-25 15:16:00
+publishDate: 2024-02-15 15:16:00
 img: /assets/titleIntroCyber.png
 img_alt: OTTEN Yassir
 description: |
@@ -13,7 +13,7 @@ tags:
 
 ---
 I'm pleased to share that I have success
-fully passed the CISCO Introduction to Cybersecurity. This certification marks a significant milestone in my networking career.
+fully passed the CISCO Introduction to Cybersecurity. This certification marks a significant milestone in my cybsersecurity career.
 ![Badge](/assets/introCyberBadge.png)  
 
 ## Certification Details
@@ -21,7 +21,7 @@ fully passed the CISCO Introduction to Cybersecurity. This certification marks a
 - **Badge Link:** https://www.credly.com/badges/82146441-8719-4446-a0ca-600dc587132d/public_url
 - **Certification Name:**  CISCO - Introduction to Cybersecurity
 - **Certifying Body:** CISCO
-- **Date of Achievement:** [25/02/2024 03:00 PM]
+- **Date of Achievement:** [25/02/2024]
 
 ## Course Content
 

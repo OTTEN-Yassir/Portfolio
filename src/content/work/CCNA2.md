@@ -1,6 +1,6 @@
 ---
 title: CCNA 2 Routing and Switching and Wireless Essentials
-publishDate: 2024-02-17 22:50:13
+publishDate: 2024-02-27 22:50:13
 img: /assets/ccna2.jpg
 img_alt: OTTEN Yassir
 description: |
@@ -19,8 +19,8 @@ I'm pleased to share that I have successfully passed the CCNA 2 Routing and Swit
 
 - **Badge Link:** https://www.credly.com/badges/046cecdc-cd65-4de4-a9a4-ddfd7d6a1c4d/public_url
 - **Certification Name:** CCNA 2 - Routing and Switching and Wireless Essentials
-- **Certifying Body:** Cisco
-- **Date of Achievement:** [24/01/2024 09:07 AM]
+- **Certifying Body:** CISCO
+- **Date of Achievement:** [24/01/2024]
 
 ## Course Content
 
