@@ -1,6 +1,6 @@
 ---
-title: Conception and deployement of an network infrastructure
-publishDate: 2024-02-20 23:29:30
+title: Conception and deployment of a network infrastructure
+publishDate: 2024-02-26 23:29:30
 img: /assets/logicalTopologie.png
 img_alt: OTTEN Yassir
 description: |
@@ -40,7 +40,8 @@ tags:
 
 ## Introduction
 
-The network cross-project course brings together a student group for three full days to design and implement a complete network infrastructure. This report presents our activity within this project. Our goal was to establish an enterprise network across two sites (Brussels and Nivelles), equivalent to an Autonomous System (AS64514), integrating multiple security zones managed by a firewall, connection to a second Autonomous System (AS64515), and the Internet. Additionally, providing users with various services: WiFi access, FTP server, VPN connection using OpenVPN, shared EtherPad file, Docker Swarm, Nextcloud, all hosted on Windows or Linux virtual machines integrated into Proxmox servers.
+The network cross-project course brings together a student group for three full days to design and implement a complete network infrastructure. This report presents our activity within this project. Our goal was to establish an enterprise network across two sites (Brussels and Nivelles), equivalent to an Autonomous System (AS64514), integrating multiple security zones managed by a firewall, connection to a second Autonomous System (AS64515), and the Internet. Additionally, providing users with various services: WiFi access, FTP server, VPN connection using OpenVPN, shared EtherPad file, Docker Swarm, Nextcloud, all hosted on Windows or Linux virtual machines integrated into Proxmox servers.  
+ [link](https://github.com/OTTEN-Yassir/IT-ICT-Reports/blob/main/Conception-and-deployment-of-a-network-infrastructure.md) to the GitHub repository
 
 ## Planned Topology
 

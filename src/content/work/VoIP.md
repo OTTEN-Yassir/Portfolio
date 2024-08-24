@@ -1,6 +1,6 @@
 ---
 title: Voice over IP (VoIP) Network Design and Implementation Project
-publishDate: 2024-02-26 23:29:30
+publishDate: 2024-02-25 23:29:30
 img: /assets/voip.png
 img_alt: OTTEN Yassir
 description: |
@@ -40,6 +40,7 @@ tags:
 
 
  We have implemented a call center system involving the configuration of 4 servers, each dedicated to a specific group of 2 or 3 persons. Each server operates with Elastix software for call management. Within each group, physical machines have been configured with Ekiga software, establishing a connection with the corresponding server. This client-server architecture enables efficient management of all communications within the call center.  
+ [link](https://github.com/OTTEN-Yassir/IT-ICT-Reports/blob/main/VoIP.md) to the GitHub repository
 
 **Ekiga**:  
 Ekiga is an open-source, real-time communication software application. It offers Internet telephony, instant messaging, and video conferencing functionalities. Compatible with SIP and H.323 protocols, Ekiga allows users to initiate voice and video calls over IP networks.  

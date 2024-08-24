@@ -1,6 +1,6 @@
 ---
 title: CISCO Cyber Threat Management
-publishDate: 2024-02-29 15:16:00
+publishDate: 2024-02-07 15:16:00
 img: /assets/cyberThreatLogo.png
 img_alt: OTTEN Yassir
 description: |
